@@ -1,11 +1,19 @@
 # node-serverless-s3
 
 
-Este é um projeto pessoal para estudo e pratica.
+ Este é um projeto pessoal para estudo e pratica.
+
+ O primeiro passo é executar o comando: 
+
+ ```npm install```
+
+ Esse comando serve para instalar as dependencias do projeto.
+
 
  O projeto consiste em uma aplicação Serverless onde existem duas funções Lambda chamadas "uploadFile" e "downloadFile".
  Ambas funções são configuradas para rodar no "localhost:3000" atraves do comando :
 
+```serverless offline```
 ```serverless offline```
 
 Ps. O projeto foi desenvolvido em node.js 20.x.x utilizando o NPM, caso haja alguma incompatibilidade por favor instalar a versão mais atual do node.js.
