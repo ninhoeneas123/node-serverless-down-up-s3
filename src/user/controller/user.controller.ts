@@ -8,11 +8,10 @@ import { responseModelDownloadfile } from '../../utils/responses/response-getfil
 import { ResponseModel } from '../interface/response-model.interface';
 import validateBody from '../../utils/validations/validate-request-body';
 import { EventBody } from '../interface/event-body.interface';
-// import validateBody from '../../utils/validations/validate-request-body';
 
 class UserController {
 
-  async uploadFile(event: APIGatewayProxyEvent, fileName: string): Promise<ResponseModel> {
+  async uploadImage(event: APIGatewayProxyEvent, fileName: string): Promise<ResponseModel> {
     try {
       const eventBody: EventBody = await parser.parse(event);
       const isBodyValid = await validateBody(eventBody, ['files'])
@@ -40,7 +39,7 @@ class UserController {
     }
   }
 
-  async getFile(event: APIGatewayProxyEvent) {
+  async downloadImage(event: APIGatewayProxyEvent) {
     try {
       const fileName = event.pathParameters?.fileName
       if (!fileName) {
@@ -48,7 +47,6 @@ class UserController {
       }
       const url = await AwsS3.getFile(fileName);
       const response = await axios.get(url, { responseType: 'arraybuffer' });
-      console.log(typeof response.data)
 
       return responseModelDownloadfile(response.data, 200)
 

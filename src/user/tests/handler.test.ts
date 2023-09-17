@@ -31,9 +31,7 @@ describe('User Handler test', () => {
 
         const event = assembleEventBody('GET', `/download-file/${fileName}`, `image/jpeg`, fileName, null);
         const response = await downloadFile(event);
-        console.log(response);
-        console.log(fileName)
-
+        
         expect(response).toHaveProperty('statusCode')
         expect(response.statusCode).toBe(200);
         expect(response).toHaveProperty('headers');
