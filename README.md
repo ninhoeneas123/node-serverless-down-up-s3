@@ -1,7 +1,7 @@
 # node-serverless-s3
 
 
-Este é um pŕojeto pessoal para estudo e pratica.
+Este é um projeto pessoal para estudo e pratica.
 
  O projeto consiste em uma aplicação Serverless onde existem duas funções Lambda chamadas "uploadFile" e "downloadFile".
  Ambas funções são configuradas para rodar no "localhost:3000" atraves do comando :
