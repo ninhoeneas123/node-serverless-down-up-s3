@@ -1,0 +1,16 @@
+Este é um pŕojeto pessoal para estudo e pratica.
+
+ O projeto consiste em uma aplicação Serverless onde existem duas funções Lambda chamadas "uploadFile" e "downloadFile".
+ Ambas funções são configuradas para rodar no "localhost:3000" atraves do comando :
+
+```serverless offline```
+
+Os endpoints disponiveis são :
+
+/user/upload - faz o upload que uma imgem JPG ou JPEG, o body deve ser um JSON com uma key com nome "file".
+/user/download-file/{fileName} - faz o download do arquivo salvo na AWS, para isso você deve passar o nome do arquivo no lugar de "filename" exatamente como foi feito o upload, o nome deve ser igual ! 
+/user/test - um endpoint para testar comunicação.
+
+PS. O projeto ainda não esta finalizado, falta umas validações e a finalização dos testes de integração !!!!!!!!
+
+

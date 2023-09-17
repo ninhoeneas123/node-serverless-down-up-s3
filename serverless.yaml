@@ -1,0 +1,80 @@
+org: joseeneas
+app: serverless-s3
+service: s3-post-and-list-objects
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: user
+  apiGateway:
+    binaryMediaTypes:
+      - "multipart/form-data"
+functions:
+  teste:
+    handler: src/user/handler.test
+    events:
+      - http:
+          path: /test
+          method: get
+  uploadFile:
+    handler: src/user/handler.uploadFile
+    events:
+      - http:
+          path: /upload
+          method: post
+  downloadFile:
+    handler: src/user/handler.downloadFile
+    events:
+      - http:
+          path: /download-file/{fileName}
+          method: get
+          request:
+            parameters:
+              headers:
+                Content-Type: "'application/json'"
+resources:
+  Resources:
+    MyServerlessExampleBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: serveless-project
+    UploadFilePolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: UploadObjects
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: LambdaPutObjects
+              Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:PutObjectTagging
+              Resource:
+                Fn::Join:
+                  - ""
+                  - - "arn:aws:s3:::"
+                    - Ref: MyServerlessExampleBucket
+                    - "/*"
+        Roles:
+          - serverless-example-dev-us-east-1-role
+    TestBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: my-test-bucket
+    TestFilePolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: TestFilePolicy
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action: s3:PutObject
+              Resource:
+                - Fn::Sub: "arn:aws:s3:::my-test-bucket/*"
+        Roles: -IamRoleLambdaExecution
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-jest-plugin
